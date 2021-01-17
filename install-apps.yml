@@ -28,10 +28,18 @@
 
   tasks:
     - name: Install All desired Apps using Apple Store CLI
-      community.general.mas:
-        id: "{{ item.id }}"
-        state: present
-      loop: "{{ apps }}"
+      block:
+        - name: Install App using mas module
+          community.general.mas:
+            id: "{{ item.id }}"
+            state: present
+          loop: "{{ apps }}"
+      rescue:
+        - name: Install using the mas command line
+          command: mas purchase "{{ item.id }}"
+          register: mas_result
+          loop: "{{ apps }}"
+          changed_when: '"Warning:" not in mas_result.stdout'
 
     - name: Upgrade All installed apps to the latest version
       community.general.mas:
