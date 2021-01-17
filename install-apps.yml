@@ -25,6 +25,10 @@
         id: "926036361"
       - name: "PDF to Word Free"
         id: "956036306"
+      - name: "Trello"
+        id: "1278508951"
+      - name: "Mind Node - Mind Map"
+        id: "1289197285"
 
   tasks:
     - name: Install All desired Apps using Apple Store CLI
@@ -39,7 +43,6 @@
           command: mas purchase "{{ item.id }}"
           register: mas_result
           loop: "{{ apps }}"
-          changed_when: '"Warning:" not in mas_result.stdout'
 
     - name: Upgrade All installed apps to the latest version
       community.general.mas:
