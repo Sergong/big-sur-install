@@ -23,6 +23,8 @@
         id: "823766827"
       - name: "LastPass Password Manager"
         id: "926036361"
+      - name: "PDF to Word Free"
+        id: "956036306"
 
   tasks:
     - name: Install All desired Apps using Apple Store CLI
