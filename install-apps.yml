@@ -1,0 +1,36 @@
+---
+- name: Playbook to install Mac Applications
+  hosts: localhost
+  connection: local
+
+  vars:
+    apps:
+      - name: "Microsoft Word"
+        id: "462054704"
+      - name: "Microsoft Outlook"
+        id: "985367838"
+      - name: "Microsoft OneNote"
+        id: "784801555"
+      - name: "Microsoft Excel"
+        id: "462058435"
+      - name: "Microsoft PowerPoint"
+        id: "462062816"
+      - name: "Microsoft Remote Desktop"
+        id: "1295203466"
+      - name: "Microsoft To Do"
+        id: "1274495053"
+      - name: "OneDrive"
+        id: "823766827"
+      - name: "LastPass Password Manager"
+        id: "926036361"
+
+  tasks:
+    - name: Install All desired Apps using Apple Store CLI
+      community.general.mas:
+        id: "{{ item.id }}"
+        state: present
+      loop: "{{ apps }}"
+
+    - name: Upgrade All installed apps to the latest version
+      community.general.mas:
+        upgrade_all: true
